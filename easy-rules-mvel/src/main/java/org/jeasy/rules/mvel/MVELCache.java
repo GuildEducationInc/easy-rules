@@ -13,22 +13,18 @@ public class MVELCache {
     private ConcurrentHashMap<String, Object> cache;
 
     private MVELCache() {
-        this.cache = new ConcurrentHashMap<String, Object>();
+        this.cache = new ConcurrentHashMap<>();
     }
 
     @SuppressWarnings("unchecked")
     public MVELAction getAction(String expression) {
-        if (!cache.contains(expression)) {
-            cache.put(expression, new MVELAction(expression));
-        }
+        cache.putIfAbsent(expression, new MVELAction(expression));
         return (MVELAction) cache.get(expression);
     }
 
     @SuppressWarnings("unchecked")
     public MVELCondition getCondition(String expression) {
-        if (!cache.contains(expression)) {
-            cache.put(expression, new MVELCondition(expression));
-        }
+        cache.putIfAbsent(expression, new MVELCondition(expression));
         return (MVELCondition) cache.get(expression);
     }
 
