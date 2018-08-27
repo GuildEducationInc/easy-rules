@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 public class MVELCache {
     private static class Holder {
@@ -17,14 +18,14 @@ public class MVELCache {
     }
 
     @SuppressWarnings("unchecked")
-    public MVELAction getAction(String expression) {
-        cache.putIfAbsent(expression, new MVELAction(expression));
+    public MVELAction getAction(final String expression) {
+        cache.computeIfAbsent(expression, (Function<String, MVELAction>) MVELAction::new);
         return (MVELAction) cache.get(expression);
     }
 
     @SuppressWarnings("unchecked")
     public MVELCondition getCondition(String expression) {
-        cache.putIfAbsent(expression, new MVELCondition(expression));
+        cache.computeIfAbsent(expression, (Function<String, MVELCondition>) MVELCondition::new);
         return (MVELCondition) cache.get(expression);
     }
 
