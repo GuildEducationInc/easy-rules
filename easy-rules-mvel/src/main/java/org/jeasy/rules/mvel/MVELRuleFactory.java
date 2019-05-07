@@ -44,6 +44,7 @@ public class MVELRuleFactory {
      * @return a new rule
      */
     public static MVELRule createRuleFrom(Reader ruleDescriptor) {
+        reader = new MVELRuleDefinitionReader();
         MVELRuleDefinition ruleDefinition = reader.read(ruleDescriptor);
         return ruleDefinition.create();
     }
@@ -55,6 +56,7 @@ public class MVELRuleFactory {
      * @return a set of rules
      */
     public static Rules createRulesFrom(Reader rulesDescriptor) {
+        reader = new MVELRuleDefinitionReader();
         Rules rules = new Rules();
         List<MVELRuleDefinition> ruleDefinition = reader.readAll(rulesDescriptor);
         for (MVELRuleDefinition mvelRuleDefinition : ruleDefinition) {

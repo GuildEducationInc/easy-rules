@@ -88,7 +88,7 @@ public class MVELRule extends BasicRule {
      * @return this rule
      */
     public MVELRule when(String condition) {
-        this.condition = new MVELCondition(condition);
+        this.condition = MVELCache.getCache().getCondition(condition);
         return this;
     }
 
@@ -98,7 +98,7 @@ public class MVELRule extends BasicRule {
      * @return this rule
      */
     public MVELRule then(String action) {
-        this.actions.add(new MVELAction(action));
+        this.actions.add(MVELCache.getCache().getAction(action));
         return this;
     }
 
